@@ -4,7 +4,8 @@ var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var app = express()
 
-var User = require('./models/User.js')
+var userCtrl = require('./controller/UserController.js')
+
 //cors enabled
 app.use(cors())
 
@@ -12,35 +13,27 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
+
 //api end points
-app.get('/test',(req,res) => {
-    res.json({result: 'Hello Mark Jeo'})
-})
+app.use('/api/auth', userCtrl);
 
-app.get('/token/:username',(req,res) => {
-    res.json({result : req.params.username})
-})
+// app.get('/test',(req,res) => {
+//     res.json({result: 'Hello Mark Jeo'})
+// })
 
-app.post('/token',(req,res) => {
-    console.log(req.body)
-    var data = {
-        name : req.body.username,
-        fullname: req.body.fullname
-    }
-    res.json(data)
-})
+// app.get('/token/:username',(req,res) => {
+//     res.json({result : req.params.username})
+// })
 
-app.post('/register',(req,res) => {
-    var userData = req.body;
-    var user = new User(userData)
+// app.post('/token',(req,res) => {
+//     console.log(req.body)
+//     var data = {
+//         name : req.body.username,
+//         fullname: req.body.fullname
+//     }
+//     res.json(data)
+// })
 
-    user.save((err, result) => {
-        if(err) console.log(err);
-        
-        res.sendStatus(200);
-    })
-
-})
 
 mongoose.connect('mongodb://markjeo:markjeo@ds251747.mlab.com:51747/nodedb',{ useMongoClient: true }, (err) => {
     if(!err) console.log('connected to mongo')
