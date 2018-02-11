@@ -14,5 +14,11 @@ router.post('/register',(req,res) => {
         else res.status(200).send(result);
     });
 
-}) 
+})
+
+router.get('/users',(req,res) => {
+    User.find({},function(err,users){
+        res.status(200).send(users)
+    })
+})
 
