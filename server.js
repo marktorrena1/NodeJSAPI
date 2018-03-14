@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
 var app = express()
 
 var userCtrl = require('./controller/UserController.js')
-
+var AuthCtrl = require('./controller/AuthController')
 //cors enabled
 app.use(cors())
 
@@ -15,10 +15,11 @@ app.use(bodyParser.json())
 
 
 //api end points
-app.use('/api/auth', userCtrl);
-
+app.use('/api/user', userCtrl);
+app.use('/api/auth', AuthCtrl);
 
 mongoose.connect('mongodb://markjeo:markjeo@ds251747.mlab.com:51747/nodedb',{ useMongoClient: true }, (err) => {
     if(!err) console.log('connected to mongo')
 })
+
 app.listen(3000, () => console.log('App listening on port 3000!'))

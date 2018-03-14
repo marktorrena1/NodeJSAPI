@@ -3,22 +3,19 @@ var express = require('express')
 var router = express.Router()
 
 var User = require('../models/User.js')
-
+var Auth = require('../Factory/Auth')
 module.exports = router;
 
-router.post('/register',(req,res) => {
-
-    var user = new User(req.body)
-    user.save((err,result) => {
-        if(err) res.status(500).send(err);
-        else res.status(200).send(result);
-    });
-
-})
-
-router.get('/users',(req,res) => {
+router.get('/', Auth.verifyToken,(req,res,next) => {
     User.find({},function(err,users){
         res.status(200).send(users)
+    })
+})
+
+router.get('/:id', Auth.verifyToken ,(req,res,next) => {
+    User.findById(req.params.id, (err,user)=> {
+        if(err) res.status(500).send(err);
+        res.status(200).send(user);
     })
 })
 
