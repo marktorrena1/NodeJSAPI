@@ -5,7 +5,7 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('../models/User');
-var Auth = require('../Factory/Auth');
+var Auth = require('../factory/Auth');
 
 module.exports = router;
 
