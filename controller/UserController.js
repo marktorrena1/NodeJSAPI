@@ -3,7 +3,7 @@ var express = require('express')
 var router = express.Router()
 
 var User = require('../models/User.js')
-var Auth = require('../Factory/Auth')
+var Auth = require('../factory/Auth')
 module.exports = router;
 
 router.get('/', Auth.verifyToken,(req,res,next) => {
