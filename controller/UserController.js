@@ -12,10 +12,17 @@ router.get('/', Auth.verifyToken,(req,res,next) => {
     })
 })
 
-router.get('/:id', Auth.verifyToken ,(req,res,next) => {
-    User.findById(req.params.id, (err,user)=> {
+router.get('/:username',Auth.verifyToken,(req,res,next) => {
+    User.find(req.param.username, (err,user) => {
         if(err) res.status(500).send(err);
         res.status(200).send(user);
     })
 })
+
+// router.get('/:id', Auth.verifyToken ,(req,res,next) => {
+//     User.findById(req.params.id, (err,user)=> {
+//         if(err) res.status(500).send(err);
+//         res.status(200).send(user);
+//     })
+// })
 
